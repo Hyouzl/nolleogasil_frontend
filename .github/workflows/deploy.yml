@@ -55,12 +55,17 @@ jobs:
 
       # Docker에 연결하여 이미지를 빌드하고 Hub에 푸시한다.
       # https://docs.docker.com/build/ci/github-actions/#step-three-define-the-workflow-steps
-      - name: Docker Build and push
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue -f Dockerfile .
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green -f Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker image for blue
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue -f Dockerfile .
+      - name: Build Docker image for green
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green -f Dockerfile .
+      - name: push Docker image to docker hub (blue)
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue
+      - name: push Docker image to docker hub (green)
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green
+          
 
   deploy:
     needs: build-and-test # build-and-test 작업이 성공적으로 수행되어야 실행된다.
