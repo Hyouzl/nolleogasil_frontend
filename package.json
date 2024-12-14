@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@typescript-eslint/parser": "^5.62.0",
+    "ajv": "^8.17.1",
     "axios": "^1.6.7",
     "big-integer": "^1.6.52",
     "bootstrap": "^5.3.3",
@@ -21,6 +22,7 @@
     "gh-pages": "^6.1.1",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
     "postcss-merge-longhand": "5.1.7",
     "prop-types": "^15.8.1",
@@ -32,10 +34,10 @@
     "react-dom": "^18.2.0",
     "react-kakao-login": "^2.1.1",
     "react-kakao-maps-sdk": "^1.1.26",
-    "react-native": "^0.73.4",
+    "react-native": "^0.73.11",
     "react-native-date-picker": "^4.3.7",
     "react-router-dom": "^6.21.3",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "recoil": "^0.7.7",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
@@ -43,6 +45,7 @@
     "typescript": "^4.9.5",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
+    "webpack": "^5.96.1",
     "websocket": "^1.0.34"
   },
   "scripts": {
@@ -70,8 +73,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
