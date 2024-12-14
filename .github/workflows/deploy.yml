@@ -69,7 +69,7 @@ jobs:
 
   deploy:
     needs: build # build 작업이 성공적으로 수행되어야 실행된다.
-    runs-on: self-hosted # 지정된 Runner에서 동작한다. 등록한 self-hosted runner의 이름을 작성한다.
+    runs-on: [self-hosted, ec2] # 지정된 Runner에서 동작한다. 등록한 self-hosted runner의 이름을 작성한다.
     steps:
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
         run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue
