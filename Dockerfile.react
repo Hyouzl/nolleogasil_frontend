@@ -1,45 +1,21 @@
 # Stage 1: Build the React app
-FROM node:14-alpine as build
+FROM node:18-alpine as build
 WORKDIR /app
 COPY package.json ./
 # Update package list and install nodejs and npm
-RUN apk update && apk upgrade && \
-    apk add --no-cache nodejs \
-    npm
-COPY . ./   
-
-# 환경 변수 ARG 설정
-ARG REACT_APP_KAKAO_API_KEY
-ARG REACT_APP_REST_API_KEY
-ARG REACT_APP_KAKAO_AUTH_URL
-ARG REACT_APP_REDIRECT_URI
-# ARG DANGEROUSLY_DISABLE_HOST_CHECK
-ARG REACT_APP_BACKEND_URL
-
-# 환경 변수를 빌드 환경 변수로 설정
-ENV REACT_APP_KAKAO_API_KEY=$REACT_APP_KAKAO_API_KEY
-ENV REACT_APP_REST_API_KEY=$REACT_APP_REST_API_KEY
-ENV REACT_APP_KAKAO_AUTH_URL=$REACT_APP_KAKAO_AUTH_URL
-ENV REACT_APP_REDIRECT_URI=$REACT_APP_REDIRECT_URI
-# ENV DANGEROUSLY_DISABLE_HOST_CHECK=$DANGEROUSLY_DISABLE_HOST_CHECK
-ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
-
+RUN npm install
+COPY . ./ 
 # React 앱 빌드
-RUN npm install && npm run build
+RUN npm run build
 
 # Stage 2: Serve the React app using Nginx
 FROM nginx:alpine
-
 # Nginx 설정 파일을 이미지에 복사
-COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
-
 # React 앱을 빌드한 결과물을 Nginx의 정적 파일 서빙 디렉토리로 복사
 COPY --from=build /app/build /usr/share/nginx/html
-
 # Nginx가 리스닝할 포트 설정
-EXPOSE 80
-
+EXPOSE 3000
 # Nginx를 실행하여 정적 파일 서빙
 CMD ["nginx", "-g", "daemon off;"]
 
