@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.5.2
 
-	  # React 프로젝트이므로 해당 환경을 Node.js 위에서 실행하겠다고 명시한다.
+      # React 프로젝트이므로 해당 환경을 Node.js 위에서 실행하겠다고 명시한다.
       # 마찬가지로 누군가 만들어 놓은 Action이다.
       # node.js 18 버전을 사용하도록 설정
       - name: Use Node.js 18
@@ -24,7 +24,7 @@ jobs:
           node-version: 18
 
 
-	  # push할 때마다 npm을 install 해야할까? 아니다.
+      # push할 때마다 npm을 install 해야할까? 아니다.
       # 해당 프로젝트의 node_modules가 변했는지 안 변했는지를 이용해서
       # 모듈 변화가 있을 때만 npm install을 해줄 수도 있다.
       - name: Cache node modules
