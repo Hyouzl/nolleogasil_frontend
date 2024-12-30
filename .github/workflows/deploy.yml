@@ -53,8 +53,9 @@ jobs:
       - name: Build
         run: npm run build
       
-      - name: Set Docker Image Tag
-        id: vars
+      - name: Save TAG to Secrets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "TAG=${{ env.TAG }}" | gh secret set DEPLOY_TAG
 
