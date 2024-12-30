@@ -79,8 +79,7 @@ jobs:
     steps:
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
         run: |
-          source $HOME/deploy-env.sh
-          sudo docker pull  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:$TAG
+          sudo docker pull  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.TAG }}
 
       - name: deploy.sh 적용
         run: ./deploy.sh
