@@ -55,7 +55,7 @@ jobs:
       
       - name: Save TAG to Secrets
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "TAG=${{ env.TAG }}" | gh secret set DEPLOY_TAG
 
