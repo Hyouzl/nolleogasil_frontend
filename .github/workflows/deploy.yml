@@ -52,33 +52,30 @@ jobs:
 
       - name: Build
         run: npm run build
+      
+      - name: Set Docker Image Tag
+        id: vars
+        run: |
+          echo "TAG=v$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+          echo "DOCKER_REPOSITORY=${{ secrets.DOCKER_REPOSITORY }}" >> $GITHUB_ENV
 
       # Docker에 연결하여 이미지를 빌드하고 Hub에 푸시한다.
       # https://docs.docker.com/build/ci/github-actions/#step-three-define-the-workflow-steps
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build Docker image for blue
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue -f Dockerfile.react .
-      - name: Build Docker image for green
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green -f Dockerfile.react .
-      - name: push Docker image to docker hub (blue)
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue
-      - name: push Docker image to docker hub (green)
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green
-          
+      
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:${{ env.TAG }} -f Dockerfile.react .
 
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_REPOSITORY }}:${{ env.TAG }}
   deploy:
     needs: build # build 작업이 성공적으로 수행되어야 실행된다.
     runs-on: [self-hosted, ec2] # 지정된 Runner에서 동작한다. 등록한 self-hosted runner의 이름을 작성한다.
     steps:
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
-        run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-blue
-        
-      - name: Pull Docker image from DockerHub # 실행중인 docker container가 있다면 중지한다.
-        run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:server-prod-green
-        
+        run: |
+          sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}:${{ env.TAG }}
+
       - name: deploy.sh 적용
         run: ./deploy.sh
-        
-      - name: 사용하지 않는 docker image 지우기
-        run: sudo docker image prune -f
