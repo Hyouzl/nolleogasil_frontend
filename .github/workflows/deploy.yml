@@ -70,13 +70,17 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ env.TAG }}
+      - name: Save TAG to File
+        run: |
+          echo "TAG=${{ env.TAG }}" > /tmp/deploy-env.sh
   deploy:
     needs: build # build 작업이 성공적으로 수행되어야 실행된다.
     runs-on: [self-hosted, ec2] # 지정된 Runner에서 동작한다. 등록한 self-hosted runner의 이름을 작성한다.
     steps:
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
         run: |
-          sudo docker pull ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY }}:${{ env.TAG }}
+          source /tmp/deploy-env.sh
+          sudo docker pull  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:$TAG
 
       - name: deploy.sh 적용
         run: ./deploy.sh
