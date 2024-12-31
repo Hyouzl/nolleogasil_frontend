@@ -76,7 +76,7 @@ jobs:
     needs: build # build 작업이 성공적으로 수행되어야 실행된다.
     runs-on: [self-hosted, ec2] # 지정된 Runner에서 동작한다. 등록한 self-hosted runner의 이름을 작성한다.
     steps:
-      - name: Debug Outputs
+      - name: Debug Outputshttps://github.com/Hyouzl/nolleogasil_frontend/blob/main/.github/workflows/deploy.yml
         run: echo "Using TAG:" ${{ needs.build.outputs.tag }}
     
       - name: Set Environment Variables
@@ -85,9 +85,9 @@ jobs:
           DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
           DEPLOY_TAG: ${{ needs.build.outputs.tag }}
         run: |
-          echo "DOCKER_USERNAME=${DOCKER_USERNAME}" > /tmp/deploy-env.sh
-          echo "DOCKER_REPOSITORY=${DOCKER_REPOSITORY}" > /tmp/deploy-env.sh
-          echo "DEPLOY_TAG=${DEPLOY_TAG}" >> /tmp/deploy-env.sh
+          echo "DOCKER_USERNAME=${DOCKER_USERNAME}" > ./deploy-env.sh
+          echo "DOCKER_REPOSITORY=${DOCKER_REPOSITORY}" > ./deploy-env.sh
+          echo "DEPLOY_TAG=${DEPLOY_TAG}" >> ./deploy-env.sh
 
       
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
@@ -96,5 +96,5 @@ jobs:
   
       - name: deploy.sh 적용
         run: |
-          source /tmp/deploy-env.sh
+          source ./deploy-env.sh
           ./deploy.sh
