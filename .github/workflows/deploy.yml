@@ -85,8 +85,8 @@ jobs:
           DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
           DEPLOY_TAG: ${{ needs.build.outputs.tag }}
         run: |
-          echo "DOCKER_USERNAME=${DOCKER_USERNAME}" > ./deploy-env.sh
-          echo "DOCKER_REPOSITORY=${DOCKER_REPOSITORY}" > ./deploy-env.sh
+          echo "DOCKER_USERNAME=${DOCKER_USERNAME}" >> ./deploy-env.sh
+          echo "DOCKER_REPOSITORY=${DOCKER_REPOSITORY}" >> ./deploy-env.sh
           echo "DEPLOY_TAG=${DEPLOY_TAG}" >> ./deploy-env.sh
 
       
