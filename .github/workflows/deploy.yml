@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest # ubuntu 최신 버전 환경에서 실행
+    outputs:
+      tag: ${{ steps.set_tag.outputs.tag }}  # outputs 키를 job 단위에서 정의
     steps:
       # GitHub Actions는 해당 프로젝트를 만들어진 환경에 checkout하고 나서 실행한다.
       # 마치 브랜치를 만들 때 checkout하는 것처럼 꼭 필요하다.
@@ -22,7 +24,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-
 
       # push할 때마다 npm을 install 해야할까? 아니다.
       # 해당 프로젝트의 node_modules가 변했는지 안 변했는지를 이용해서
@@ -54,16 +55,11 @@ jobs:
         run: npm run build
 
       - name: Set Docker Image Tag
-        id: vars
+        id: set_tag
         run: |
-          echo "TAG=v$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-          
-      - name: Save TAG to Secrets
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          echo "TAG=$TAG"
-          echo $TAG | gh secret set DEPLOY_TAG
+          TAG=v$(date +'%Y%m%d%H%M%S')
+          echo "TAG=${TAG}" >> $GITHUB_ENV
+          echo "::set-output name=tag::${TAG}"
 
       # Docker에 연결하여 이미지를 빌드하고 Hub에 푸시한다.
       # https://docs.docker.com/build/ci/github-actions/#step-three-define-the-workflow-steps
@@ -71,18 +67,21 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.DEPLOY_TAG }} -f Dockerfile.react .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ steps.set_tag.outputs.tag }} -f Dockerfile.react .
 
       - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.DEPLOY_TAG }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ steps.set_tag.outputs.tag }}
         
   deploy:
     needs: build # build 작업이 성공적으로 수행되어야 실행된다.
     runs-on: [self-hosted, ec2] # 지정된 Runner에서 동작한다. 등록한 self-hosted runner의 이름을 작성한다.
     steps:
+      - name: Debug Outputs
+        run: echo "Using TAG:" ${{ needs.build.outputs.tag }}
+      
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
         run: |
-          sudo docker pull  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.DEPLOY_TAG }}
-
+          sudo docker pull  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ needs.build.outputs.tag }}
+  
       - name: deploy.sh 적용
         run: ./deploy.sh
