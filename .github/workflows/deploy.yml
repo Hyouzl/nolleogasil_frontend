@@ -78,10 +78,23 @@ jobs:
     steps:
       - name: Debug Outputs
         run: echo "Using TAG:" ${{ needs.build.outputs.tag }}
+    
+      - name: Set Environment Variables
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
+          DEPLOY_TAG: ${{ needs.build.outputs.tag }}
+        run: |
+          echo "DOCKER_USERNAME=${DOCKER_USERNAME}" > /tmp/deploy-env.sh
+          echo "DOCKER_REPOSITORY=${DOCKER_REPOSITORY}" > /tmp/deploy-env.sh
+          echo "DEPLOY_TAG=${DEPLOY_TAG}" >> /tmp/deploy-env.sh
+
       
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
         run: |
           sudo docker pull  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ needs.build.outputs.tag }}
   
       - name: deploy.sh 적용
-        run: ./deploy.sh
+        run: |
+          source /tmp/deploy-env.sh
+          ./deploy.sh
