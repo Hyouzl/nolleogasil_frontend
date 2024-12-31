@@ -88,6 +88,9 @@ jobs:
           echo "DOCKER_USERNAME=${DOCKER_USERNAME}" >> ./deploy-env.sh
           echo "DOCKER_REPOSITORY=${DOCKER_REPOSITORY}" >> ./deploy-env.sh
           echo "DEPLOY_TAG=${DEPLOY_TAG}" >> ./deploy-env.sh
+          export DOCKER_USERNAME=${DOCKER_USERNAME}
+          export DOCKER_REPOSITORY=${DOCKER_REPOSITORY}
+          export DEPLOY_TAG=${DEPLOY_TAG}
 
       
       - name: Pull Docker image from DockerHub # docker image를 pull 해온다.
