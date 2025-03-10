@@ -11,18 +11,3 @@
 /*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
 /*    monospace;*/
 /*}*/
-
-
-html {
-  width: 600px;
-  height: 100vh;
-  margin: 0 auto;
-  background-color:rgb(215, 250, 247);
-}
-
-body {
-  background-color: #FFFFFF;
-  width: 600px;
-  height: 100vh;
-  margin: 0 auto;
-}

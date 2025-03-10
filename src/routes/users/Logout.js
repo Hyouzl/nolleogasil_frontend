@@ -1,37 +1,40 @@
-import React, {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../api";
 
 const Logout = () => {
-    const navigate = useNavigate();
-    const apiUrl = process.env.REACT_APP_BACKEND_URL;  //backend api url
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_BACKEND_URL; //backend api url
+  const backend_url = "http://localhost:8080";
+  // 1️⃣ CSRF 토큰 가져오기 (쿠키에서 추출)
 
-    useEffect(() => {
-        async function logoutUser() {
-            try{
-                const response = await fetch(`${apiUrl}/api/user/logout`, {
-                    method: 'POST',
-                    credentials: 'include'
-                });
+  console.log(document.cookie);
+  useEffect(() => {
+    async function logoutUser() {
+      try {
+        await api.post(`/api/users/logout`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        // 로그아웃 성공 시 로컬 스토리지 정보 삭제
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("userId");
 
-                if(response.ok){ //로그아웃 성공 시
-                    //localStorage에 저장된 사용자 관련 정보 삭제
-                    localStorage.removeItem('login-token');
-                    localStorage.removeItem('nickname');
-                    localStorage.removeItem('userInfo');
-                    localStorage.removeItem('usersId');
+        alert("로그아웃되었습니다!");
+        navigate("/"); // 메인 페이지로 이동
+      } catch (error) {
+        console.error("로그아웃 오류: ", error);
+      }
+    }
 
-                    navigate("/");
-                    alert('로그아웃되었습니다!');
-                }else{
-                    console.error('failed logout: ', response.statusText);
-                }
-            }catch(error){
-                console.error('error logout: ', error);
-            }
-        }
-        logoutUser();
-    }, []);
+    logoutUser();
+  }, [navigate]);
 
-    return null;
+  return null;
 };
 export default Logout;

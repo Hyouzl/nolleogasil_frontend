@@ -1,57 +1,190 @@
-.top {
-    height: 70px;
-    line-height : 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* .top {
+  height: 70px;
+  line-height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-    margin-left: 20px;
-    font-family: 'LOTTERIACHAB';
-    font-size: 1.7em;
-    color: #1facf3;
+  margin-left: 20px;
+  font-family: "LOTTERIACHAB";
+  font-size: 1.7em;
+  color: #1facf3;
 }
 
 .optional {
-    font-size: 0.9em;
-    font-family: 'Giants-Bold';
-    margin-right: 25px;
+  font-size: 0.9em;
+  font-family: "Giants-Bold";
+  margin-right: 25px;
 }
 
 .linkText {
-    color: grey;
+  color: grey;
 }
 
 .subBody {
-    height: 81vh;
-    overflow: auto;
-    position: static;
+  height: 81vh;
+  overflow: auto;
+  position: static;
 }
 
 .btnBox {
-    margin: 35px auto 0;
-    width: 450px;
+  margin: 35px auto 0;
+  width: 450px;
 }
 
 .btns {
-    padding-left: 12px;
+  padding-left: 12px;
 }
 
 a {
-    text-decoration-line: none;
+  text-decoration-line: none;
+}
+*/
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+/* 화면 전체 스타일 */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+/* 로고 스타일 */
+.logo {
+  margin-left: 20px;
+  font-family: "LOTTERIACHAB";
+  font-size: 1.7em;
+  color: #1facf3;
+}
+
+/* 로그인 상태 영역 */
+.optional {
+  font-size: 1rem;
+  font-family: "Giants-Bold";
+}
+
+/* 버튼 영역 */
+.subBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1920px;
+}
+
+.slideImg {
+  width: 100%; /* 화면 가득 채우기 */
+  height: auto; /* 높이 자동 조정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 반응형 적용 */
+@media (max-width: 768px) {
+  .slideImg {
+    max-height: 300px; /* 모바일에서는 높이 줄이기 */
+  }
+}
+
+@media (max-width: 480px) {
+  .slideImg {
+    max-height: 250px;
+  }
+}
+.btnContainer {
+  display: flex;
+  width: 100%;
+  max-width: 1920px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+/* 버튼 그리드 */
+.btnBox {
+  display: grid;
+  grid-template-columns: repeat(3, 3fr);
+  gap: 10px;
+}
+
+/* 개별 버튼 스타일 */
+.btns {
+  width: 100%;
+  text-align: center;
+}
+
+/* 닉네임 말줄임 */
+.optional span {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* UnderBar 중앙 정렬 */
+.underBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 30px; /* 적절한 여백 추가 */
+}
+
+/* 반응형 적용 */
+@media (max-width: 768px) {
+  .btnBox {
+    grid-template-columns: repeat(2, 1fr); /* 모바일에서는 2개씩 배치 */
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .optional {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btnBox {
+    grid-template-columns: repeat(1, 1fr); /* 모바일에서는 한 줄에 1개 */
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .optional {
+    font-size: 0.8rem;
+  }
 }
 
 @font-face {
-    font-family: 'LOTTERIACHAB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "LOTTERIACHAB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "Giants-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
 }

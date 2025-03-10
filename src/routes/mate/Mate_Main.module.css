@@ -1,105 +1,126 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.underBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 30px; /* 적절한 여백 추가 */
+}
+
 .top {
-    height: 70px;
+  height: 70px;
 }
 
 .subBody {
-    font-family: 'Giants-Bold';
-    height: 81vh;
-    overflow: auto;
-    position: relative;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  font-family: "Giants-Bold";
+  height: 81vh;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .subBody::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 
 .category {
-    width: 400px;
-    text-align: center;
-    margin: 20px auto 15px auto;
+  width: 400px;
+  text-align: center;
+  margin: 20px auto 15px auto;
 }
 
 .categoryBtn {
-    width: 95px;
-    height: 33px;
-    margin: 0 7px;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    color: black;
-    background-color: #DBDBDB;
+  width: 95px;
+  height: 33px;
+  margin: 0 7px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  color: black;
+  background-color: #dbdbdb;
 }
 
 .categoryBtn:hover {
-    background-color: #ADCDFD;
+  background-color: #adcdfd;
 }
 
 .selected {
-    width: 95px;
-    height: 33px;
-    margin: 0 7px;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    color: black;
-    background-color: #ADCDFD;
+  width: 95px;
+  height: 33px;
+  margin: 0 7px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  color: black;
+  background-color: #adcdfd;
 }
 
 .dropDownBox {
-    position: absolute;
-    top: 20px;
-    right: 25px;
+  position: absolute;
+  top: 20px;
+  right: 25px;
 }
 
 .alertBox {
-    text-align: center;
-    margin-top: 100px;
+  text-align: center;
+  margin-top: 100px;
 }
 
 .alertImg {
-    width: 170px;
-    height: 170px;
+  width: 170px;
+  height: 170px;
 }
 
 .alertMessage {
-    color: #989898;
-    font-size: 19px;
+  color: #989898;
+  font-size: 19px;
 }
 
 .goBackBtn {
-    width: 100px;
-    height: 37px;
-    background-color: #c0c0c0;
-    border: none;
-    border-radius: 20px;
-    font-size: 18px;
-    color: black;
+  width: 100px;
+  height: 37px;
+  background-color: #c0c0c0;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  color: black;
 }
 
 .goBackBtn:hover {
-    background-color: darkgrey;
+  background-color: darkgrey;
 }
 
 .loadingBox {
-    width: 600px;
-    height: 350px;
-    text-align: center;
-    line-height: 330px;
-    margin-top: 100px;
+  width: 600px;
+  height: 350px;
+  text-align: center;
+  line-height: 330px;
+  margin-top: 100px;
 }
 
 .loadingImg {
-    width: 300px;
-    height: 200px;
+  width: 300px;
+  height: 200px;
 }
 
 @font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Giants-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
 }

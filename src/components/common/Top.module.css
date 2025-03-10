@@ -1,27 +1,29 @@
 .top {
-    width:600px;
-    height: 70px;
-    padding: 15px 0 0 20px;
-    border-bottom: 1px solid lightgrey;
-    color: darkgrey;
+  display: flex;
+  width: 600px;
+  height: 70px;
+  padding: 15px 0 0 20px;
+  border-bottom: 1px solid lightgrey;
+  color: darkgrey;
 }
 
 .goBackBtn {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
 .title {
-    font-family: 'Giants-Bold';
-    font-size: 1.5em;
-    font-weight: bold;
-    padding: 2px 0 0 2px;
+  font-family: "Giants-Bold";
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 2px 0 0 2px;
 }
 
 @font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "Giants-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
 }

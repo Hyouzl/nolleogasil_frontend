@@ -33,6 +33,9 @@ import MyPage from "./routes/users/MyPage";
 import SessionChecker from "./components/users/SessionChecker";
 import Register from "./routes/users/Register";
 import OAuth2RedirectHandler from "./routes/users/Oauth2RedirectHandler";
+import ChatTest from "./routes/chat/ChatTest";
+import RedirectHandler from "./routes/users/RedirectHandler";
+import Chat from "./routes/chat/Chat";
 
 function App() {
   function setScreenSize() {
@@ -62,22 +65,8 @@ function App() {
 
         {/*메이트 화면*/}
         <Route path="/eatMate/mateForm" element={<MateModal />} />
-        <Route
-          path="/eatMate/sendApply"
-          element={
-            <SessionChecker>
-              <SendApply />
-            </SessionChecker>
-          }
-        />
-        <Route
-          path="/eatMate/receiveApply"
-          element={
-            <SessionChecker>
-              <ReceiveApply />
-            </SessionChecker>
-          }
-        />
+        <Route path="/eatMate/sendApply" element={<SendApply />} />
+        <Route path="/eatMate/receiveApply" element={<ReceiveApply />} />
         <Route path="/eatMate/mateDetail" element={<MateDetail />} />
 
         {/*여행경로 화면*/}
@@ -86,17 +75,12 @@ function App() {
         <Route path="/travelDetail" element={<TravelDetail />} />
 
         {/*맛집에 해당하는 챗방 목록.. */}
-        <Route
-          path="/chat/chatList"
-          element={
-            <SessionChecker>
-              <MyChatRoomList_Main />
-            </SessionChecker>
-          }
-        />
+        <Route path="/chat/chatList" element={<MyChatRoomList_Main />} />
         <Route path="/result" element={<Result />} />
         {/*맛집에 해당하는 챗방 목록.. */}
         <Route path="/chat/:chatroomId" element={<ChatRoom />} />
+        <Route path="/chat/test" element={<ChatTest />} />
+        <Route path="/oauth/kakao/callback" element={<RedirectHandler />} />
 
         {/*사용자 정보 관련 화면*/}
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
@@ -104,22 +88,8 @@ function App() {
         <Route path="/user/callback" element={<User />} />
         <Route path="/profilePath" element={<ProfilePath />} />
         <Route path="/users/logout" element={<Logout />} />
-        <Route
-          path="/users/update/:usersId"
-          element={
-            <SessionChecker>
-              <ModifyUser />
-            </SessionChecker>
-          }
-        />
-        <Route
-          path="/myPage/:usersId"
-          element={
-            <SessionChecker>
-              <MyPage />
-            </SessionChecker>
-          }
-        />
+        <Route path="/users/update/:usersId" element={<ModifyUser />} />
+        <Route path="/myPage/:usersId" element={<MyPage />} />
         <Route path="/users/register" element={<Register />} />
       </Routes>
     </Router>
