@@ -5,29 +5,39 @@ import { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import {
-  handleEmailLogin,
-  handleKakaoLogin,
-} from "../../components/users/Login";
+import { handleCommonLogin } from "../../components/users/Login";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [loginId, setLoginId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleLoginIdChange = (e) => {
+    setLoginId(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  const handleGoogleLogin = () => {
-    const googleAuthUrl = `http://localhost:8080/oauth2/authorization/google`;
-    window.location.href = googleAuthUrl;
+  const handleGoogleLogin = async () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
+
+  const KAKAO_CLIENT_ID = "7742335c4d85535f308e11de30644e4c"; // 카카오 디벨로퍼에서 발급받은 REST API 키
+  const KAKAO_REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback"; // 카카오 디벨로퍼에서 설정한 Redirect URI
+  const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${encodeURIComponent(
+    KAKAO_REDIRECT_URI
+  )}`;
+
+  const handleKakaoLogin = async () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
+  };
+
   return (
-    <div>
+    <div className={styles.main}>
       <div className={styles.top}>
         <Top text="로그인 | 회원가입" tmp="login" />
       </div>
-      <p />
       <div className={styles.container}>
         <div className={styles.headliner}>
           Welcome to
@@ -38,24 +48,45 @@ function Login() {
           <img src="/images/users/login_eat.png" alt="로그인 이미지" />
         </div>
         <div className={styles.btn}>
-          <img
-            src="/images/users/kakao_login_medium_wide.png"
-            alt="카카오 로그인"
+          <Button
+            className={styles.kakaoButton}
+            onClick={() => handleKakaoLogin()}
+          >
+            <img src="/images/users/2111466.png" alt="카카오 로그인" />
+            카카오 로그인
+          </Button>
+          <Button
+            className={styles.googleButton}
             onClick={() => handleGoogleLogin()}
-            className={styles.kakaoLogin}
-          />
+          >
+            <img
+              src="/images/users/png-clipart-google-logo-google-g-logo-icons-logos-emojis-tech-companies-thumbnail.png"
+              alt="구글 로그인"
+            />
+            구글 로그인
+          </Button>
         </div>
         <div className={styles.emailLogin}>
           <Form.Control
             type="email"
             placeholder="이메일 입력"
-            value={email}
-            onChange={handleEmailChange}
-            className={styles.emailInput}
+            value={loginId}
+            onChange={handleLoginIdChange}
+            className={styles.formControl}
+          />
+          <Form.Control
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={handlePasswordChange}
+            className={styles.formControl}
           />
           <Button
-            onClick={() => handleEmailLogin(email, navigate, setErrorMessage)}
-            className={`${styles.emailLoginButton} ${styles.customButtonColor}`}
+            onClick={() =>
+              handleCommonLogin(loginId, password, navigate, setErrorMessage)
+            }
+            className={`${styles.customButtonColor}`}
           >
             로그인
           </Button>
@@ -70,7 +101,7 @@ function Login() {
           </Row>
         )}
       </div>
-      <div>
+      <div className={styles.underBarContainer}>
         <UnderBar />
       </div>
     </div>

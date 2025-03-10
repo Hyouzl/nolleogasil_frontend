@@ -1,23 +1,43 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
 .top {
-    height: 70px;
+  height: 70px;
 }
 
 .subBody {
-    height: 81vh;
-    position: static;
-    overflow-y: scroll; /* 수직 스크롤바를 항상 표시하여 내용이 넘칠 경우 스크롤 가능하게 함 */
-    -ms-overflow-style: none; /* IE 및 Edge에서 스크롤바를 숨김 */
-    scrollbar-width: none; /* 파이어폭스에서 스크롤바를 숨김 */
+  height: 81vh;
+  position: static;
+  overflow-y: scroll; /* 수직 스크롤바를 항상 표시하여 내용이 넘칠 경우 스크롤 가능하게 함 */
+  -ms-overflow-style: none; /* IE 및 Edge에서 스크롤바를 숨김 */
+  scrollbar-width: none; /* 파이어폭스에서 스크롤바를 숨김 */
 }
 
 .subBody::-webkit-scrollbar {
-    width: 0; /* 웹킷 브라우저에서 스크롤바를 숨김 */
-    height: 0;
+  width: 0; /* 웹킷 브라우저에서 스크롤바를 숨김 */
+  height: 0;
+}
+
+.underBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 30px; /* 적절한 여백 추가 */
 }
 
 @font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "Giants-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
 }

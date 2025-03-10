@@ -1,52 +1,86 @@
+/* UnderBar 컨테이너 */
 .under {
-    font-family: 'Giants-Bold';
-    background-color: white;
-    border: 2px solid #ADCDFD;
-    border-bottom: white;
-    border-radius: 15px 15px 0 0;
-    height: 70px;
-    width: 600px;
-    position: fixed;
-    bottom: 0;
+  font-family: "Giants-Bold";
+  background-color: white;
+  border: 2px solid #adcdfd;
+  border-bottom: white;
+  border-radius: 15px 15px 0 0;
+  height: 60px;
+  width: 100%;
+  max-width: 700px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 좌, 우 버튼이 너무 중앙으로 몰리지 않도록 설정 */
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px; /* 버튼과 컨테이너 간격 조정 */
+  position: relative;
 }
 
-a {
-    text-decoration-line: none;
-}
-
-.leftBtn {
-    display: block;
-    text-align: center;
-    width: 110px;
-    float: left;
-    margin: 19px 0 0 78px;
-    font-size: 19px;
-    color: grey;
-}
-
-.homeBtn {
-    margin-left: 80px;
-    font-size: 23px;
-    border: 3px solid #ADCDFD;
-    border-radius: 50%;
-    padding: 13px 19px;
-    background-color: #ADCDFD;
-    color: black;
-}
-
+/* 버튼 공통 스타일 */
+.leftBtn,
 .rightBtn {
-    display: block;
-    text-align: center;
-    width: 110px;
-    float: right;
-    margin: 19px 78px 0 0;
-    font-size: 19px;
-    color: grey;
+  text-align: center;
+  font-size: 18px;
+  color: grey;
+  text-decoration: none;
+  cursor: pointer;
+  flex-grow: 1; /* 버튼이 자동으로 적절한 크기를 가지도록 설정 */
+  min-width: 100px; /* 너무 작아지지 않도록 설정 */
+  max-width: 150px; /* 너무 커지지 않도록 설정 */
 }
 
-@font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+/* 가운데 홈 버튼 (완벽한 중앙 정렬) */
+.homeBtn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* 가로 + 세로 중앙 정렬 */
+  font-size: 20px;
+  border: 3px solid #adcdfd;
+  border-radius: 50%;
+  padding: 12px 16px; /* 버튼 크기 조정 */
+  background-color: #adcdfd;
+  color: black;
+  width: 50px; /* 버튼 크기 조정 */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 반응형 적용 */
+@media (max-width: 768px) {
+  .under {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  .homeBtn {
+    font-size: 18px;
+    padding: 10px 14px;
+    width: 45px;
+    height: 45px;
+  }
+  .leftBtn,
+  .rightBtn {
+    width: auto;
+    min-width: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .under {
+    height: 55px; /* 모바일에서 더 줄이기 */
+  }
+  .homeBtn {
+    font-size: 16px;
+    padding: 8px 12px;
+    width: 40px;
+    height: 40px;
+  }
+  .leftBtn,
+  .rightBtn {
+    min-width: 80px;
+  }
 }

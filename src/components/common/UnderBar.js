@@ -1,68 +1,45 @@
-import React, {useState, useEffect} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import styles from "./UnderBar.module.css"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import styles from "./UnderBar.module.css";
 
 function UnderBar({ left, leftLink, right, rightLink }) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [usersId, setUsersId] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [usersId, setUsersId] = useState(null);
 
-    const checkLoginStatus = async () => {
-        const storedAccessToken = localStorage.getItem('login-token');
+  useEffect(() => {
+    const storedAccessToken = localStorage.getItem("accessToken");
+    const storedUsersId = localStorage.getItem("userId");
 
-        if (storedAccessToken) { // 로그인 상태일 경우
-            setIsLoggedIn(true);
-
-            const storedUsersId = parseInt(localStorage.getItem('usersId'));
-            if (storedUsersId) {
-                setUsersId(storedUsersId);
-            }
-        } else { // 비로그인 상태일 경우
-            setIsLoggedIn(false);
-        }
+    if (storedAccessToken) {
+      setIsLoggedIn(true);
+      if (storedUsersId) setUsersId(parseInt(storedUsersId));
+    } else {
+      setIsLoggedIn(false);
     }
+  }, []);
 
-    useEffect(() => {
-        checkLoginStatus();
-    }, []);
+  return (
+    <div className={styles.under}>
+      {/* 왼쪽 버튼 */}
+      <Link to={left ? leftLink : "/chat/chatList"}>
+        <span className={styles.leftBtn}>{left ? left : "채팅"}</span>
+      </Link>
 
-    return (
-        <div className={styles.under}>
+      {/* 홈 버튼 */}
+      <Link to="/">
+        <span className={styles.homeBtn}>홈</span>
+      </Link>
 
-            {
-                left == null? (
-                    <Link to={"/chat/chatList"}>
-                        <span className={styles.leftBtn}>채팅</span>
-                    </Link>
-                ) : (
-                    <Link to={leftLink}>
-                        <span className={styles.leftBtn}>{left}</span>
-                    </Link>
-                )
-            }
-
-            <Link to={"/"}>
-                <span className={styles.homeBtn}>홈</span>
-            </Link>
-
-            {
-                right == null? (
-                    isLoggedIn ? (
-                            <Link to={`/myPage/${usersId}`}>
-                                <span className={styles.rightBtn}>마이페이지</span>
-                            </Link>
-                    ) : (
-                            <Link to={`/users/login`}>
-                                <span className={styles.rightBtn}>마이페이지</span>
-                            </Link>
-                    )
-                ) : (
-                    <Link to={rightLink}>
-                        <span className={styles.rightBtn}>{right}</span>
-                    </Link>
-                )
-            }
-        </div>
-    );
+      {/* 오른쪽 버튼 */}
+      <Link
+        to={
+          right ? rightLink : isLoggedIn ? `/myPage/${usersId}` : "/users/login"
+        }
+      >
+        <span className={styles.rightBtn}>{right ? right : "마이페이지"}</span>
+      </Link>
+    </div>
+  );
 }
 
 export default UnderBar;

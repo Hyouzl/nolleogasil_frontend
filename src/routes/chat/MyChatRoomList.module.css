@@ -1,103 +1,120 @@
-.contentArea{
-    padding-top: 20px;
-    margin: 0 auto;
-    height: 81vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-}
-.contentArea::-webkit-scrollbar{
-    display: none;
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
 }
 
+.contentArea {
+  padding-top: 20px;
+  margin: 0 auto;
+  height: 81vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+.contentArea::-webkit-scrollbar {
+  display: none;
+}
 
 .root {
-    width: 400px;
-    display: flex;
-    justify-content: center;
+  width: 400px;
+  display: flex;
+  justify-content: center;
 }
 
 .btn {
-    display: inline-block;
-    position: relative;
-    color: black;
-    font-size: 23px;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    transition: font-weight 0.25s ease-out;
-    margin: 0 30px; /* 좌우 간격을 10px로 설정 */
+  display: inline-block;
+  position: relative;
+  color: black;
+  font-size: 23px;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: font-weight 0.25s ease-out;
+  margin: 0 30px; /* 좌우 간격을 10px로 설정 */
 }
 
 .btn:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 7px;
-    left: 0;
-    bottom: -10px; /* Adjust this value so it's outside of the button's content */
-    background-color: #4EC5D6;
-    transform: scaleX(0);
-    transform-origin: bottom center;
-    transition: transform 0.5s ease-in-out;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  left: 0;
+  bottom: -10px; /* Adjust this value so it's outside of the button's content */
+  background-color: #4ec5d6;
+  transform: scaleX(0);
+  transform-origin: bottom center;
+  transition: transform 0.5s ease-in-out;
 }
 
 .btn.selected:after {
-    transform: scaleX(1);
+  transform: scaleX(1);
 }
 
-.btn:not(.selected):after { /* When the button is not selected */
-    transform: scaleX(0);
-    transition: transform 0.5s ease-in-out; /* Same duration and easing function for a consistent effect */
+.btn:not(.selected):after {
+  /* When the button is not selected */
+  transform: scaleX(0);
+  transition: transform 0.5s ease-in-out; /* Same duration and easing function for a consistent effect */
 }
 
 .underLine {
-    text-decoration: underline;
-    text-decoration-color: #4EC5D6;
-    text-decoration-thickness: 8px;
-    font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #4ec5d6;
+  text-decoration-thickness: 8px;
+  font-weight: bold;
 }
 
-.NoContent{
-    margin: 70px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+.NoContent {
+  margin: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loadingBox {
-    width: 580px;
-    height: 350px;
-    text-align: center;
-    line-height: 330px;
+  width: 580px;
+  height: 350px;
+  text-align: center;
+  line-height: 330px;
 }
 
 .loadingImg {
-    width: 545px;
-    height: 325px;
+  width: 545px;
+  height: 325px;
 }
 
 .alertImage {
-    margin: 60px 0px 30px 0px;
+  margin: 60px 0px 30px 0px;
 }
-.alertComment{
-    text-align: center;
-    font-size: 18px;
-    font-family: 'Giants-Bold';
-    color: #A9A9A9;
+.alertComment {
+  text-align: center;
+  font-size: 18px;
+  font-family: "Giants-Bold";
+  color: #a9a9a9;
 }
 
 .chatRoomContainer {
-    width: 548px;
-    display: flex; /* 요소들을 가로로 정렬하기 위해 Flexbox를 사용 */
-    flex-wrap: wrap; /* 요소들이 넘칠 경우 줄 바꿈 */
-    justify-content: flex-start; /* 요소들을 컨테이너의 시작 지점(왼쪽)에서 시작하도록 정렬 */
+  width: 548px;
+  display: flex; /* 요소들을 가로로 정렬하기 위해 Flexbox를 사용 */
+  flex-wrap: wrap; /* 요소들이 넘칠 경우 줄 바꿈 */
+  justify-content: flex-start; /* 요소들을 컨테이너의 시작 지점(왼쪽)에서 시작하도록 정렬 */
 }
 
 .dropDiv {
-    float: right;
-    margin-right: 25px;
+  float: right;
+  margin-right: 25px;
+}
+.underBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 30px; /* 적절한 여백 추가 */
 }

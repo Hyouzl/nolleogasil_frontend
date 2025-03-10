@@ -8,13 +8,10 @@ const OAuth2RedirectHandler = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get("accessToken");
-    const refreshToken = params.get("refreshToken");
-
-    if (accessToken && refreshToken) {
+    if (accessToken) {
       // 토큰을 로컬 스토리지에 저장
       localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-
+      console.log(accessToken);
       const decoded = jwtDecode(accessToken);
       // 'attributes' 클레임에서 'name' 값 가져오기
       const attributes = decoded.attributes;
@@ -28,6 +25,8 @@ const OAuth2RedirectHandler = () => {
         }
         localStorage.setItem("nickname", nickname);
       }
+      const userId = params.get("userId");
+      localStorage.setItem("userId", userId);
 
       navigate("/"); // 메인 페이지로 이동
     } else {

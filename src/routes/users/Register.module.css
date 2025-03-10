@@ -1,62 +1,82 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.underBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 30px; /* 적절한 여백 추가 */
+}
+
 .container {
-    text-align: center;
+  text-align: center;
 }
 
 .top {
-    height: 70px;
+  height: 70px;
 }
 
 .headliner {
-    margin-top: 50px;
-    margin-bottom: 10px;
-    font-family: 'LOTTERIACHAB';
-    font-size: 35px;
-    letter-spacing: 3px;
-    color: #8BBDFF;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-family: "LOTTERIACHAB";
+  font-size: 35px;
+  letter-spacing: 3px;
+  color: #8bbdff;
 }
 
 .formGroup {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .formControl {
-    width: 300px;
-    margin: 0 auto;
-    margin-bottom: 10px;
+  width: 300px;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 .buttonGroup {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
 }
 
 .registerButton {
-    background-color: #8BBDFF;
-    border-color: #8BBDFF;
+  background-color: #8bbdff;
+  border-color: #8bbdff;
 }
 
 .customButtonColor {
-    background-color: #8BBDFF;
-    border-color: #8BBDFF;
+  background-color: #8bbdff;
+  border-color: #8bbdff;
 }
 
 .loadingBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .loadingImg {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 @font-face {
-    font-family: 'LOTTERIACHAB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "LOTTERIACHAB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
