@@ -2,8 +2,9 @@ import axios from "axios";
 
 console.log("📌 현재 Access Token:", localStorage.getItem("accessToken"));
 // https://api.nolleogasil.shop/
+// http://localhost:8080/
 const api = axios.create({
-  baseURL: "https://api.nolleogasil.shop/", // 백엔드 API 주소
+  baseURL: "http://localhost:8080/", // 백엔드 API 주소
   withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
 });
 
@@ -36,11 +37,18 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    alert("로그인을 해주세요!");
+
     // 500 에러 처리
     if (error.response?.status === 500) {
       console.error("❌ 500 에러 발생. 로그아웃 처리");
       window.location.href = "/";
       return Promise.reject(error);
+    }
+
+    if (error.response?.status === 401) {
+      console.log("로그인을 먼저 해주세요.");
+      window.location.href = "/users/login";
     }
 
     // ✅ 401 에러 발생 && refreshToken 요청이 아닌 경우
