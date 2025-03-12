@@ -147,7 +147,7 @@ function MateModal() {
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <div>
         <Top text="메이트 공고글 작성" />
       </div>
@@ -285,7 +285,7 @@ function MateModal() {
           </button>
         </Section>
       </MateForm>
-      <div>
+      <div className={styles.underBarContainer}>
         <UnderBar />
       </div>
     </div>

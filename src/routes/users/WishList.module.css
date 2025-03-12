@@ -1,91 +1,102 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
 .category {
-    width: 580px;
-    margin: 12px auto 8px auto;
-    text-align: center;
-}
-
-.categoryBtn {
-    width: 95px;
-    height: 33px;
-    margin: 0 7px;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    color: black;
-    background-color: #DBDBDB;
-}
-
-.categoryBtn:hover {
-    background-color: #ADCDFD;
-}
-
-.selected {
-    width: 95px;
-    height: 33px;
-    margin: 0 7px;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    color: black;
-    background-color: #ADCDFD;
+  width: 100%;
+  margin: 12px auto 8px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
 }
 
 .count {
-    display: block;
-    margin: 12px 0 0 25px;
-    font-size: 15px;
-    float: left;
+  font-size: 15px;
+  margin-left: 15px;
 }
 
 .dropBox {
-    float: right;
-    margin-right: 25px;
+  margin-left: 10px;
+}
+
+.categoryBtn {
+  width: 95px;
+  height: 33px;
+  margin: 0 3px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  color: black;
+  background-color: #dbdbdb;
+}
+
+.categoryBtn:hover {
+  background-color: #adcdfd;
+}
+
+.selected {
+  width: 95px;
+  height: 33px;
+  margin: 0 7px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  color: black;
+  background-color: #adcdfd;
 }
 
 .alertBox {
-    text-align: center;
-    margin-top: 120px;
+  text-align: center;
+  margin-top: 120px;
 }
 
 .alertImg {
-    width: 170px;
-    height: 170px;
+  width: 170px;
+  height: 170px;
 }
 
 .alertMessage {
-    color: #989898;
-    font-size: 19px;
+  color: #989898;
+  font-size: 19px;
 }
 
 .ListBox {
-    width: 580px;
-    margin: auto;
-    display: flex; /* 요소들을 가로로 정렬하기 위해 Flexbox를 사용 */
-    flex-wrap: wrap; /* 요소들이 넘칠 경우 줄 바꿈 */
-    justify-content: space-around; /* 요소들을 가운데 정렬 */
+  width: 580px;
+  margin: auto;
+  display: flex; /* 요소들을 가로로 정렬하기 위해 Flexbox를 사용 */
+  flex-wrap: wrap; /* 요소들이 넘칠 경우 줄 바꿈 */
+  justify-content: space-around; /* 요소들을 가운데 정렬 */
 }
 
 .ListBox::after {
-    content: "";
-    flex: auto; /* 추가된 가상 요소를 유연하게 확장하여 간격을 조정 */
+  content: "";
+  flex: auto; /* 추가된 가상 요소를 유연하게 확장하여 간격을 조정 */
 }
 
 @media screen and (max-width: 767px) {
-    .ListBox::after {
-        flex: none; /* 작은 화면에서는 추가된 가상 요소를 확장하지 않도록 설정 */
-    }
+  .ListBox::after {
+    flex: none; /* 작은 화면에서는 추가된 가상 요소를 확장하지 않도록 설정 */
+  }
 }
 
 @font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Giants-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'KNUTRUTHTTF';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KNUTRUTHTTF.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "KNUTRUTHTTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KNUTRUTHTTF.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }

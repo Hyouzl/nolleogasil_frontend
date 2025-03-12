@@ -15,7 +15,7 @@ function MyChatRoomList() {
   const [selected, setSelected] = useState("myRooms");
   const [sorted, setSorted] = useState("기본순");
   const [isLoading, setIsLoading] = useState(true);
-  const apiUrl = "http://localhost:8080";
+  const apiUrl = "https://api.nolleogasil.shop"; //backend api url
 
   const fetchData = (roomType) => {
     const endpoint =

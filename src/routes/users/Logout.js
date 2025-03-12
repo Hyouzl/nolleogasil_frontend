@@ -12,13 +12,7 @@ const Logout = () => {
   useEffect(() => {
     async function logoutUser() {
       try {
-        await api.post(`/api/users/logout`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        await api.post(`/api/users/logout`);
         // 로그아웃 성공 시 로컬 스토리지 정보 삭제
         localStorage.removeItem("accessToken");
         localStorage.removeItem("nickname");

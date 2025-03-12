@@ -26,7 +26,7 @@ function Mate_Main() {
   if (urlParams) {
     placeId = Number(urlParams.get("placeId"));
   }
-  const accessToken = localStorage.getItem("accessToken");
+
   //mate 목록 조회
   const getMateList = () => {
     api
