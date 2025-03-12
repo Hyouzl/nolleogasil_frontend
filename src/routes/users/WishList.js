@@ -93,7 +93,7 @@ function WishList() {
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <div className={styles.category}>
         <button
           onClick={() => handleCategoryClick(0)}
@@ -125,31 +125,30 @@ function WishList() {
         >
           관광지
         </button>
+        <span className={styles.count}>총 {count}곳</span>
+        <span className={styles.dropBox}>
+          <Dropdown onSelect={handleDropdownSelect}>
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              style={{
+                fontSize: "14px",
+                padding: "5px 10px",
+                border: "2px solid #ADCDFD",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              {selected}
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={{ fontSize: "14px" }}>
+              <Dropdown.Item eventKey="1">기본순</Dropdown.Item>
+              <Dropdown.Item eventKey="2">최신순</Dropdown.Item>
+              <Dropdown.Item eventKey="3">오래된 순</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </span>
       </div>
-
-      <span className={styles.count}>총 {count}곳</span>
-      <span className={styles.dropBox}>
-        <Dropdown onSelect={handleDropdownSelect}>
-          <Dropdown.Toggle
-            variant="success"
-            id="dropdown-basic"
-            style={{
-              fontSize: "14px",
-              padding: "5px 10px",
-              border: "2px solid #ADCDFD",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
-            {selected}
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{ fontSize: "14px" }}>
-            <Dropdown.Item eventKey="1">기본순</Dropdown.Item>
-            <Dropdown.Item eventKey="2">최신순</Dropdown.Item>
-            <Dropdown.Item eventKey="3">오래된 순</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </span>
 
       {wishList.length === 0 ? (
         <div className={styles.alertBox}>

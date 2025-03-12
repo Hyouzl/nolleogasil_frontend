@@ -33,13 +33,19 @@ function ChatRoom() {
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
   const userScrolled = useRef(false);
+  const isWebSocketConnected = useRef(false); // ✅ 중복 연결 방지용 상태 추가
 
+  const backendUrl = "https://api.nolleogasil.shop"; //backend api url
+  const testUrl = "http://localhost:8080";
   console.log(chatroomId);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
   const connectWebSocket = async () => {
+    if (client.current.connected) {
+      console.warn("🚨 이미 WebSocket이 연결되어 있습니다.");
+      return;
+    }
     let accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
@@ -54,7 +60,7 @@ function ChatRoom() {
 
     console.log("✅ WebSocket 연결 시도, 토큰:", accessToken);
 
-    const socket = new SockJS(`http://localhost:8080/ws?token=${accessToken}`); // ✅ WebSocket 연결 시 JWT 포함
+    const socket = new SockJS(`${backendUrl}/ws?token=${accessToken}`); // ✅ WebSocket 연결 시 JWT 포함
     client.current = Stomp.over(() => socket); // ✅ WebSocket 팩토리 전달
     // ✅ STOMP 클라이언트가 정의된 후 `subscribe()` 실행
     client.current.connect(
@@ -135,8 +141,16 @@ function ChatRoom() {
   };
 
   useEffect(() => {
-    connectWebSocket();
-  }, []);
+    if (!isWebSocketConnected.current) {
+      isWebSocketConnected.current = true; // ✅ 한 번만 실행되도록 설정
+      connectWebSocket();
+    }
+
+    return () => {
+      disconnected(); // ✅ 언마운트 시 정리
+      isWebSocketConnected.current = false;
+    };
+  }, [chatroomId]); // ✅ chatroomId가 변경될 때만 실행
 
   const onError = (error) => {
     console.error("WebSocket connection error:", error);

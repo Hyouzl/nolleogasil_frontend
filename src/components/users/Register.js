@@ -13,6 +13,7 @@ export const handleRegister = async (userInfo, navigate, getUserInfo) => {
       localStorage.setItem("userId", response.data.usersId);
 
       alert("회원가입이 완료되었습니다.");
+      navigate("/users/login");
     }
   } catch (error) {
     console.error("Error during registration: ", error);

@@ -1,80 +1,98 @@
-@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+@import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
 
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.underBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 30px; /* 적절한 여백 추가 */
+}
 
 .top {
-    height: 70px;
+  height: 70px;
 }
 
 .subBody {
-    height: 81vh;
-    overflow: auto;
-    position: static;
+  height: 81vh;
+  overflow: auto;
+  position: static;
 }
 .container {
-    width: 180px;
-    height: 280px;
-    margin: 11px;
+  width: 180px;
+  height: 280px;
+  margin: 11px;
 }
 
 .mateImg {
-    width: 160px;
-    height: 160px;
-    border: 1px solid red;
-    margin: 5px auto;
+  width: 160px;
+  height: 160px;
+  border: 1px solid red;
+  margin: 5px auto;
 }
 
 .timeList {
-    margin-top: 20px;
-    width: 598px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
+  margin-top: 20px;
+  width: 598px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
 }
-.commentsCont {    border: 1px solid #BFE1FF;
-    border-radius: 8px;
-    width: 500px;
-    margin: 10px auto;
-    background-color: #f2f7ff;
+.commentsCont {
+  border: 1px solid #bfe1ff;
+  border-radius: 8px;
+  width: 500px;
+  margin: 10px auto;
+  background-color: #f2f7ff;
 }
 
 .commentsBox {
-    border: none;
-    border-radius: 8px;
-    width: calc(100% - 20px);
-    height: 100px;
-    margin: 10px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #F0F8FF;
+  border: none;
+  border-radius: 8px;
+  width: calc(100% - 20px);
+  height: 100px;
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f0f8ff;
 
-    color: #333;
-    resize: none;
-    &:focus {
-        outline: none;
-    }
+  color: #333;
+  resize: none;
+  &:focus {
+    outline: none;
+  }
 }
 
 .updateBtn {
-    padding: 12px 24px;
-    background-color: rgba(0, 93, 171, 0.8); /* 세련된 하늘색 */
-    color: #fff; /* 흰색 텍스트 */
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    outline: none;
+  padding: 12px 24px;
+  background-color: rgba(0, 93, 171, 0.8); /* 세련된 하늘색 */
+  color: #fff; /* 흰색 텍스트 */
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  outline: none;
 
+  &:hover {
+    background-color: #7db6de; /* 호버 시 색상 변화 */
+  }
 
-    &:hover {
-        background-color: #7db6de; /* 호버 시 색상 변화 */
-    }
-
-    &:active {
-        transform: translateY(1px); /* 클릭 시 약간 아래로 이동 */
-    }
+  &:active {
+    transform: translateY(1px); /* 클릭 시 약간 아래로 이동 */
+  }
 }
 
 /*.commentsCont {
@@ -100,178 +118,176 @@
 /* MateModal.module.css */
 
 .radioContainer {
-    display: inline-flex;
-    align-items: center; /* 세로 가운데 정렬 */
-    margin-bottom: 10px; /* 라디오 버튼과 라벨 간격 설정 */
+  display: inline-flex;
+  align-items: center; /* 세로 가운데 정렬 */
+  margin-bottom: 10px; /* 라디오 버튼과 라벨 간격 설정 */
 }
 
 .radioBtn {
-    position: relative;
-    appearance: none;
-    width: 24px;
-    height: 24px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 10px; /* 라디오 버튼과 라벨 사이 간격 설정 */
-    outline: none;
-    transition: background-color 0.3s, border-color 0.3s;
+  position: relative;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px; /* 라디오 버튼과 라벨 사이 간격 설정 */
+  outline: none;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .radioBtn:checked {
-    background-color: rgb(107, 188, 255);
-    border-color: #6bbcff;
+  background-color: rgb(107, 188, 255);
+  border-color: #6bbcff;
 }
 
 .radioBtn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    background-color: #fff;
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.3s;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .radioBtn:checked::before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .radioValue {
-    font-family: 'Giants-Bold';
-    font-size: 16px;
-    color: rgb(107, 107, 107);
-    margin-right: 10px; /* 라벨과 다음 아이템 간격 설정 */
+  font-family: "Giants-Bold";
+  font-size: 16px;
+  color: rgb(107, 107, 107);
+  margin-right: 10px; /* 라벨과 다음 아이템 간격 설정 */
 }
 
 .titleBox {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid grey;
-    width: 300px;
-    height: 30px;
-    margin-right: 5px;
-    border-bottom: none;
-    &:focus {
-        outline: none;
-        box-shadow: none; /* 선택된 상태일 때 박스 라인 숨김 */
-    }
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid grey;
+  width: 300px;
+  height: 30px;
+  margin-right: 5px;
+  border-bottom: none;
+  &:focus {
+    outline: none;
+    box-shadow: none; /* 선택된 상태일 때 박스 라인 숨김 */
+  }
 }
 
 .opBtn {
-    background-color: transparent; /* 배경 투명 */
-    color: #007bff; /* 버튼 텍스트 색상 */
-    border: 2px solid rgba(125, 182, 222, 0.7);
-    border-radius: 50%; /* 동그라미 모양 */
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+  background-color: transparent; /* 배경 투명 */
+  color: #007bff; /* 버튼 텍스트 색상 */
+  border: 2px solid rgba(125, 182, 222, 0.7);
+  border-radius: 50%; /* 동그라미 모양 */
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 
-    &:hover {
-        background-color: #007bff; /* hover 시 배경색 변경 */
-        color: #fff; /* hover 시 텍스트 색상 변경 */
-    }
+  &:hover {
+    background-color: #007bff; /* hover 시 배경색 변경 */
+    color: #fff; /* hover 시 텍스트 색상 변경 */
+  }
 
-    &:active {
-        transform: translateY(1px);
-    }
+  &:active {
+    transform: translateY(1px);
+  }
 }
 
 .count {
-    font-size: 20px;
-    font-weight: bold;
-    color: #007bff;
-    margin: 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0 8px;
 }
 
 .questions {
-    color: rgba(44, 44, 44, 0.65);
-    font-size: 20px;
-    margin-top: 10px;
-    margin-left: 20px;
-    font-family: 'GongGothicMedium';
+  color: rgba(44, 44, 44, 0.65);
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 20px;
+  font-family: "GongGothicMedium";
 }
 
 .participantInput {
-    width: 50px; /* 입력란의 너비 조정 */
-    padding: 5px; /* 입력란의 안쪽 여백 설정 */
-    border: 2px solid #87ceeb; /* 입력란의 테두리 스타일 및 색상 설정 */
-    border-radius: 5px; /* 입력란의 테두리 둥글기 조정 */
-    font-size: 16px; /* 폰트 크기 설정 */
-    font-family: 'GongGothicMedium';
-    text-align: center; /* 텍스트 가운데 정렬 */
-    margin: 0 10px; /* 입력란과 버튼 사이의 여백 조정 */
-    background-color: transparent; /* 입력란 배경색 투명으로 설정 */
-    color: #333; /* 입력란 텍스트 색상 설정 */
-    outline: none; /* 포커스 효과 제거 */
+  width: 50px; /* 입력란의 너비 조정 */
+  padding: 5px; /* 입력란의 안쪽 여백 설정 */
+  border: 2px solid #87ceeb; /* 입력란의 테두리 스타일 및 색상 설정 */
+  border-radius: 5px; /* 입력란의 테두리 둥글기 조정 */
+  font-size: 16px; /* 폰트 크기 설정 */
+  font-family: "GongGothicMedium";
+  text-align: center; /* 텍스트 가운데 정렬 */
+  margin: 0 10px; /* 입력란과 버튼 사이의 여백 조정 */
+  background-color: transparent; /* 입력란 배경색 투명으로 설정 */
+  color: #333; /* 입력란 텍스트 색상 설정 */
+  outline: none; /* 포커스 효과 제거 */
 }
 
 .participantInput::-webkit-inner-spin-button,
 .participantInput::-webkit-outer-spin-button {
-    -webkit-appearance: none; /* 스핀 버튼 숨김 */
-    margin: 0; /* 스핀 버튼과 입력란 사이의 여백 제거 */
+  -webkit-appearance: none; /* 스핀 버튼 숨김 */
+  margin: 0; /* 스핀 버튼과 입력란 사이의 여백 제거 */
 }
 
 .placeName {
-    color: rgba(0, 93, 171, 0.8);
+  color: rgba(0, 93, 171, 0.8);
 }
 
 .placeTitle {
-    color: rgba(44, 44, 44, 0.65);
-    font-size: 20px;
-    text-align: center;
-    font-family: 'GongGothicMedium';
-    margin-bottom: 20px;
+  color: rgba(44, 44, 44, 0.65);
+  font-size: 20px;
+  text-align: center;
+  font-family: "GongGothicMedium";
+  margin-bottom: 20px;
 }
 
-.section{
-    width: 598px;
-    display: flex;
-    margin: 20px 0;
-    justify-content: center;
-    gap: 20px;
-    box-sizing: border-box;
+.section {
+  width: 598px;
+  display: flex;
+  margin: 20px 0;
+  justify-content: center;
+  gap: 20px;
+  box-sizing: border-box;
 }
-
 
 .styledCalendar {
-    width: 500px; /* 캘린더의 너비 조정 */
-    border: none; /* 캘린더의 기본 테두리 제거 */
-    border-radius: 8px; /* 캘린더의 테두리 둥글게 만들기 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    font-size: 16px; /* 폰트 크기 조정 */
-    padding: 10px; /* 캘린더 내부 여백 추가 */
-    background-color: #eaf7ff; /* 하늘색 배경 색상 적용 */
-    font-family: 'SUIT-Regular';
+  width: 500px; /* 캘린더의 너비 조정 */
+  border: none; /* 캘린더의 기본 테두리 제거 */
+  border-radius: 8px; /* 캘린더의 테두리 둥글게 만들기 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  font-size: 16px; /* 폰트 크기 조정 */
+  padding: 10px; /* 캘린더 내부 여백 추가 */
+  background-color: #eaf7ff; /* 하늘색 배경 색상 적용 */
+  font-family: "SUIT-Regular";
 }
 @font-face {
-    font-family: 'ONE-Mobile-Title';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "ONE-Mobile-Title";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'SUIT-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "SUIT-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
-
 
 @font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "GongGothicMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-
-
-
