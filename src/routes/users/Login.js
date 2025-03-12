@@ -26,6 +26,7 @@ function Login() {
   const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${encodeURIComponent(
     KAKAO_REDIRECT_URI
   )}`; */
+
   const handleGoogleLogin = async () => {
     window.location.href =
       "https://api.nolleogasil.shop/oauth2/authorization/google";
@@ -71,8 +72,8 @@ function Login() {
         </div>
         <div className={styles.emailLogin}>
           <Form.Control
-            type="email"
-            placeholder="이메일 입력"
+            type="text"
+            placeholder="아이디 입력"
             value={loginId}
             onChange={handleLoginIdChange}
             className={styles.formControl}
