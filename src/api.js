@@ -36,7 +36,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
+    const userId = localStorage.getItem("userId");
     // 500 에러 처리
     if (error.response?.status === 500) {
       console.error("❌ 500 에러 발생. 로그아웃 처리");
@@ -55,7 +55,7 @@ api.interceptors.response.use(
             resolve(api(originalRequest));
           });
         });
-      } else {
+      } else if (userId == null) {
         alert("로그인을 해주세요!");
         window.location.href = "/users/login";
       }
@@ -66,16 +66,11 @@ api.interceptors.response.use(
         console.log("📌 Refresh Token을 사용하여 Access Token 재발급 시도");
 
         console.log("userId:", localStorage.getItem("userId"));
-        const userId = localStorage.getItem("userId");
         // ✅ Refresh Token 요청
-        const refreshResponse = await axios.post(
-          "https://api.nolleogasil.shop/api/users/refresh",
-          null,
-          {
-            params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달
-            withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
-          }
-        );
+        const refreshResponse = await api.post("/api/users/refresh", null, {
+          params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달
+          withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
+        });
 
         if (refreshResponse.status === 200) {
           console.log(refreshResponse.data);
