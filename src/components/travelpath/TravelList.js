@@ -13,7 +13,7 @@ function TravelList() {
 
   const getTravelPathList = () => {
     api
-      .get(`${apiUrl}/api/travelpath/travelpathList`, {
+      .get(`/api/travelpath/travelpathList`, {
         params: {
           sortBy: selected,
         },
@@ -31,7 +31,7 @@ function TravelList() {
 
   const getCountTravelPath = () => {
     api
-      .get(`${apiUrl}/api/travelpath/count`, { withCredentials: true })
+      .get(`/api/travelpath/count`, { withCredentials: true })
       .then((response) => {
         setCount(response.data);
       })
