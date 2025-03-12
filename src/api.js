@@ -37,8 +37,6 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    alert("로그인을 해주세요!");
-
     // 500 에러 처리
     if (error.response?.status === 500) {
       console.error("❌ 500 에러 발생. 로그아웃 처리");
@@ -46,15 +44,9 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    if (error.response?.status === 401) {
-      console.log("로그인을 먼저 해주세요.");
-      window.location.href = "/users/login";
-    }
-
     // ✅ 401 에러 발생 && refreshToken 요청이 아닌 경우
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true; // 무한 루프 방지
-
       // ✅ 이미 refresh 요청이 진행 중이면 기존 refreshSubscribers에 등록하여 기다리기
       if (isRefreshingToken) {
         return new Promise((resolve) => {
@@ -63,6 +55,9 @@ api.interceptors.response.use(
             resolve(api(originalRequest));
           });
         });
+      } else {
+        alert("로그인을 해주세요!");
+        window.location.href = "/users/login";
       }
 
       isRefreshingToken = true;
