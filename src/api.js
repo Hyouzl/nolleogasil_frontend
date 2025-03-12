@@ -4,7 +4,7 @@ console.log("📌 현재 Access Token:", localStorage.getItem("accessToken"));
 // https://api.nolleogasil.shop/
 // http://localhost:8080/
 const api = axios.create({
-  baseURL: "http://localhost:8080/", // 백엔드 API 주소
+  baseURL: "https://api.nolleogasil.shop/", // 백엔드 API 주소
   withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
 });
 
@@ -36,6 +36,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    console.log(originalRequest);
     const userId = localStorage.getItem("userId");
     // 500 에러 처리
     if (error.response?.status === 500) {

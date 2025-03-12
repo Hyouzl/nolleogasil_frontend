@@ -29,6 +29,7 @@ export const handleCommonLogin = async (
   } catch (error) {
     // ✅ 서버 응답이 있는 경우 (에러 코드 기반 처리)
     if (error.response) {
+      alert(error.response);
       console.error("Login error: ", error.response);
       if (error.response.data?.code === "MEMBER201") {
         alert("신규 회원입니다. 회원가입 페이지로 이동합니다.");
