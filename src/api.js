@@ -37,6 +37,7 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     const userId = localStorage.getItem("userId");
+    console.log(error);
     // 500 에러 처리
     if (error.response?.status === 500) {
       console.error("❌ 500 에러 발생. 로그아웃 처리");
