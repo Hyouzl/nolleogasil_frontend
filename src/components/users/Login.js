@@ -17,7 +17,6 @@ export const handleCommonLogin = async (
     );
     if (response.status === 200) {
       //사용자 정보 조회
-      alert("로그인이 완료되었습니다.");
 
       console.log(response.data.result);
       localStorage.setItem("accessToken", response.data.result.accessToken);

@@ -36,7 +36,6 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    console.log(originalRequest);
     const userId = localStorage.getItem("userId");
     // 500 에러 처리
     if (error.response?.status === 500) {
@@ -45,8 +44,16 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // ✅ 401 에러 발생 && refreshToken 요청이 아닌 경우
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response.data?.code === "COMMON401") {
+      alert("아이디와 비밀번호를 확인해주세요.");
+      window.location.href = "/users/login";
+      return;
+    } // ✅ 401 에러 발생 && refreshToken 요청이 아닌 경우
+    else if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      userId != null
+    ) {
       originalRequest._retry = true; // 무한 루프 방지
       // ✅ 이미 refresh 요청이 진행 중이면 기존 refreshSubscribers에 등록하여 기다리기
       if (isRefreshingToken) {
@@ -56,44 +63,44 @@ api.interceptors.response.use(
             resolve(api(originalRequest));
           });
         });
-      } else if (userId == null) {
-        alert("로그인을 해주세요!");
-        window.location.href = "/users/login";
       }
+    } else {
+      alert("로그인을 먼저 해주세요!");
+      window.location.href = "/users/login";
+    }
 
-      isRefreshingToken = true;
+    isRefreshingToken = true;
 
-      try {
-        console.log("📌 Refresh Token을 사용하여 Access Token 재발급 시도");
+    try {
+      console.log("📌 Refresh Token을 사용하여 Access Token 재발급 시도");
 
-        console.log("userId:", localStorage.getItem("userId"));
-        // ✅ Refresh Token 요청
-        const refreshResponse = await api.post("/api/users/refresh", null, {
-          params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달
-          withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
-        });
+      console.log("userId:", localStorage.getItem("userId"));
+      // ✅ Refresh Token 요청
+      const refreshResponse = await api.post("/api/users/refresh", null, {
+        params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달
+        withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
+      });
 
-        if (refreshResponse.status === 200) {
-          console.log(refreshResponse.data);
-          const newAccessToken = refreshResponse.data;
-          localStorage.setItem("accessToken", newAccessToken);
+      if (refreshResponse.status === 200) {
+        console.log(refreshResponse.data);
+        const newAccessToken = refreshResponse.data;
+        localStorage.setItem("accessToken", newAccessToken);
 
-          // ✅ 새로 발급된 액세스 토큰을 대기 중인 요청들에 적용
-          onRefreshed(newAccessToken);
+        // ✅ 새로 발급된 액세스 토큰을 대기 중인 요청들에 적용
+        onRefreshed(newAccessToken);
 
-          // ✅ 원래 요청에 새로운 토큰을 추가하고 재시도
-          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          return api(originalRequest);
-        }
-      } catch (refreshError) {
-        console.error("❌ Refresh Token이 만료되었습니다. 다시 로그인 필요");
-        localStorage.removeItem("accessToken");
-        window.alert("오류가 발생했습니다. 다시 시도해주세요.");
-        window.location.href = "/users/login";
-        return Promise.reject(refreshError);
-      } finally {
-        isRefreshingToken = false;
+        // ✅ 원래 요청에 새로운 토큰을 추가하고 재시도
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        return api(originalRequest);
       }
+    } catch (refreshError) {
+      console.error("❌ Refresh Token이 만료되었습니다. 다시 로그인 필요");
+      localStorage.removeItem("accessToken");
+      window.alert("오류가 발생했습니다. 다시 시도해주세요.");
+      window.location.href = "/users/login";
+      return Promise.reject(refreshError);
+    } finally {
+      isRefreshingToken = false;
     }
 
     return Promise.reject(error);
