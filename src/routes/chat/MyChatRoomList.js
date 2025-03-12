@@ -20,8 +20,8 @@ function MyChatRoomList() {
   const fetchData = (roomType) => {
     const endpoint =
       roomType === "myRooms"
-        ? `${apiUrl}/api/chatRoom/myRooms`
-        : `${apiUrl}/api/chatRoom/joinedRooms`;
+        ? `/api/chatRoom/myRooms`
+        : `/api/chatRoom/joinedRooms`;
     api
       .get(endpoint, {
         params: {
