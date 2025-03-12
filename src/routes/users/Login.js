@@ -19,18 +19,21 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleGoogleLogin = async () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
-  };
-
+  /** 
   const KAKAO_CLIENT_ID = "7742335c4d85535f308e11de30644e4c"; // 카카오 디벨로퍼에서 발급받은 REST API 키
-  const KAKAO_REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback"; // 카카오 디벨로퍼에서 설정한 Redirect URI
+  const KAKAO_REDIRECT_URI =
+    "https://www.nolleogasil.shop/oauth/kakao/callback"; // 카카오 디벨로퍼에서 설정한 Redirect URI
   const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${encodeURIComponent(
     KAKAO_REDIRECT_URI
-  )}`;
+  )}`; */
+  const handleGoogleLogin = async () => {
+    window.location.href =
+      "https://api.nolleogasil.shop/oauth2/authorization/google";
+  };
 
   const handleKakaoLogin = async () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
+    window.location.href =
+      "https://api.nolleogasil.shop/oauth2/authorization/kakao";
   };
 
   return (
