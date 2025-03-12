@@ -3,7 +3,7 @@ import axios from "axios";
 console.log("📌 현재 Access Token:", localStorage.getItem("accessToken"));
 
 const api = axios.create({
-  baseURL: "http://localhost:8080", // 백엔드 API 주소
+  baseURL: "https://api.nolleogasil.shop/", // 백엔드 API 주소
   withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
 });
 
