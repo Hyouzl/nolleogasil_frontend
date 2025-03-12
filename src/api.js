@@ -3,7 +3,7 @@ import axios from "axios";
 console.log("📌 현재 Access Token:", localStorage.getItem("accessToken"));
 // https://api.nolleogasil.shop/
 const api = axios.create({
-  baseURL: "http://localhost:8080/", // 백엔드 API 주소
+  baseURL: "https://api.nolleogasil.shop/", // 백엔드 API 주소
   withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
 });
 
@@ -66,7 +66,7 @@ api.interceptors.response.use(
         const userId = localStorage.getItem("userId");
         // ✅ Refresh Token 요청
         const refreshResponse = await axios.post(
-          "http://localhost:8080/api/users/refresh",
+          "https://api.nolleogasil.shop/api/users/refresh",
           null,
           {
             params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달

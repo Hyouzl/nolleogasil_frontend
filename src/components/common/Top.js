@@ -2,13 +2,17 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Top.module.css";
 import PropTypes from "prop-types";
 
-function Top({ text, tmp }) {
+function Top({ text, tmp, onGoBack }) {
   const navigate = useNavigate();
   const goBack = () => {
-    if (tmp) {
-      window.location.href = "/";
+    if (onGoBack) {
+      onGoBack(); // ✅ onGoBack이 있을 때만 실행
     } else {
-      navigate(-1);
+      if (tmp) {
+        window.location.href = "/";
+      } else {
+        navigate(-1);
+      }
     }
   };
 

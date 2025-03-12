@@ -12,7 +12,6 @@ import Sidebar from "./Sidebar";
 function ChatRoom() {
   const storedUserId = localStorage.getItem("userId");
   const userNickname = localStorage.getItem("nickname");
-  console.log(storedUserId);
   // 입력한 채팅값
   const [newMessage, setNewMessage] = useState("");
   //채팅 목록들
@@ -41,11 +40,14 @@ function ChatRoom() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+  console.log(isWebSocketConnected.current);
+  console.log(client.current.connected);
   const connectWebSocket = async () => {
     if (client.current.connected) {
       console.warn("🚨 이미 WebSocket이 연결되어 있습니다.");
       return;
     }
+
     let accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
@@ -69,7 +71,9 @@ function ChatRoom() {
         console.log("✅ STOMP 연결 성공:", frame);
         setIsConnected(true); // ✅ 연결 성공 상태 변경
 
-        if (client.current && client.current.connected) {
+        if (client.current.connected) {
+          // ✅ ✅ ✅ 기존 구독이 있다면 해제
+
           client.current.subscribe(`/topic/room.${chatroomId}`, (message) => {
             console.log("📩 메시지 수신:", message.body);
             setMessages((prevMessages) => [
@@ -97,6 +101,12 @@ function ChatRoom() {
       },
       async (error) => {
         console.error("🚨 STOMP 연결 실패:", error);
+        if (!isWebSocketConnected.current) {
+          console.warn(
+            "❌ 사용자가 채팅방을 나갔기 때문에 재연결을 하지 않습니다."
+          );
+          return;
+        }
         // 401 Unauthorized 발생 시 토큰 재발급 및 WebSocket 재연결
         if (error.headers && error.headers["message"]?.includes("401")) {
           console.warn("⚠️ JWT 만료 감지, 토큰 재발급 시도...");
@@ -118,14 +128,10 @@ function ChatRoom() {
     try {
       const userId = localStorage.getItem("userId");
       // ✅ Refresh Token 요청
-      const response = await axios.post(
-        "http://localhost:8080/api/users/refresh",
-        null,
-        {
-          params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달
-          withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
-        }
-      );
+      const response = await api.post("/api/users/refresh", null, {
+        params: { userId: userId }, // ✅ 쿼리스트링으로 userId 전달
+        withCredentials: true, // ✅ 쿠키 포함 (Refresh Token 자동 전송)
+      });
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("accessToken", data.accessToken); // ✅ 새 토큰 저장
@@ -154,10 +160,21 @@ function ChatRoom() {
 
   const onError = (error) => {
     console.error("WebSocket connection error:", error);
+
+    // ✅ 사용자가 채팅방을 나간 경우 재연결하지 않음
+    if (!isWebSocketConnected.current) {
+      console.warn(
+        "❌ 사용자가 채팅방을 나갔기 때문에 재연결을 하지 않습니다."
+      );
+      return;
+    }
+
     alert("WebSocket connection error. Please refresh the page to try again.");
+
     if (reconnectTimeout.current) {
       clearTimeout(reconnectTimeout.current);
     }
+
     reconnectTimeout.current = setTimeout(() => {
       connectWebSocket();
     }, 5000); // 5초 후 재연결 시도
@@ -221,12 +238,28 @@ function ChatRoom() {
   };
 
   const disconnected = () => {
-    if (client.current.connected) {
-      client.current?.send("/pub/chat.send.leave", {}, storedUserId);
-      setNewMessage("");
-    }
+    console.log("❌ WebSocket 연결 해제");
+    if (client.current && client.current.connected) {
+      // ✅ 기존 구독 해제
+      if (client.current.subscriptionId) {
+        client.current.unsubscribe(client.current.subscriptionId);
+        console.warn(`🚨 구독 해제됨: ${client.current.subscriptionId}`);
+      }
 
-    client.current.deactivate();
+      // ✅ 연결 해제 플래그 변경
+      isWebSocketConnected.current = false;
+      console.log(
+        "📢 isWebSocketConnected 값 변경됨: ",
+        isWebSocketConnected.current
+      );
+
+      // ✅ WebSocket 연결 종료
+      client.current.disconnect(() => {
+        console.log("✅ WebSocket 연결 해제 완료");
+      });
+    } else {
+      console.warn("⚠️ WebSocket이 이미 해제되어 있습니다.");
+    }
   };
 
   const send = ({ chatroomId }) => {
@@ -376,7 +409,6 @@ function ChatRoom() {
     // 우리는 사용자가 방에 입장하자마자 연결 시켜주어야 하기 때문에,,
     if (!enter.current) {
       getChatRoom(chatroomId);
-      connectWebSocket();
       fetchMessages(chatroomId);
     }
 
@@ -419,6 +451,16 @@ function ChatRoom() {
   const handleInputChange = (e) => {
     setNewMessage(e.target.value);
   };
+  const handleGoBack = () => {
+    console.log("🚪 채팅방 나가기: WebSocket 연결 해제 실행");
+
+    // ✅ WebSocket 연결 해제 먼저 실행
+    disconnected();
+
+    setTimeout(() => {
+      navigate(-1);
+    }, 100);
+  };
 
   if (isLoading) {
     return (
@@ -435,7 +477,7 @@ function ChatRoom() {
   return (
     <div className={styles.main}>
       <div>
-        <Top text="채팅방" />
+        <Top text="채팅방" onGoBack={handleGoBack} />
       </div>
       <div className={styles.container}>
         <div className={styles.headerContainer}>
@@ -464,7 +506,7 @@ function ChatRoom() {
           {/* 날짜별 메시지 렌더링 */}
           {Object.keys(groupedMessages)
             .sort()
-            .reverse()
+
             .map((date) => (
               <div key={date}>
                 <div
